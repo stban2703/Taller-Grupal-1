@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
-
+    ComunicacionTCP comm;
     //Button izquierdabtn;
     //Button derechabtn;
     //Button poderbtn;
@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         //derechabtn.findViewById(R.id.derechabtn);
         //poderbtn.findViewById(R.id.poderbtn);
 
+        comm=new ComunicacionTCP(this);
+        comm.solicitarConexion();
 
     }
 }
