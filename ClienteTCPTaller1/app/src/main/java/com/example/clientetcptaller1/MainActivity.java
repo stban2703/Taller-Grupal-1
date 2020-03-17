@@ -8,9 +8,9 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
     ComunicacionTCP comm;
-    //Button izquierdabtn;
-    //Button derechabtn;
-    //Button poderbtn;
+    //ImageButton izquierdabtn;
+    //ImageButton derechabtn;
+    //ImageButton poderbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
