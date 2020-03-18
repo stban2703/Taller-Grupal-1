@@ -18,6 +18,7 @@ public class Logica {
 	public Logica(PApplet app) {
 		this.app=app;
 		pantallaInicio = new PantallaInicial(app);
+		pantallaInstrucciones = new PantallaInstrucciones(app);
 	}
 	
 	public void pintarPantallas() {
@@ -26,9 +27,10 @@ public class Logica {
 		case 0:
 		
 			this.pantallaInicio.pintarPantalla();
-			if (app.mouseX >= 509 && app.mouseX <= 239 && app.mouseY >= 661 && app.mouseY <= 403) {
+			if (app.mouseX >= 475 && app.mouseX <= 692 && app.mouseY >= 204 && app.mouseY <= 418) {
 				app.cursor(app.HAND);
-				
+			} else {
+				app.cursor(app.ARROW);
 			}
 
 			break;
@@ -56,7 +58,7 @@ public class Logica {
 
 		case 0:
 			// EVALUACIÓN ÁREA SENSIBLE DEL BOTÓN DE JUGAR
-			if (app.mouseX >= 509 && app.mouseX <= 239 && app.mouseY >= 661 && app.mouseY <= 403) {
+			if (app.mouseX >= 475 && app.mouseX <= 692 && app.mouseY >= 204 && app.mouseY <= 418) {
 				app.cursor(app.HAND);
 				this.pantalla = 1;
 			}
