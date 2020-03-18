@@ -9,8 +9,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import main.Main;
+
 import processing.core.PApplet;
+import vista.Main;
 
 public class ComunicacionTCP extends Thread {
 	private Socket socket;

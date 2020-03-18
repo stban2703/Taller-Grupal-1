@@ -1,20 +1,19 @@
-package main;
-
-
-
+package vista;
 import comm.ComunicacionTCP;
+import modelo.Logica;
 import processing.core.PApplet;
 
 public class Main extends PApplet{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		PApplet.main("main.Main");
+		PApplet.main(Main.class.getName());
 	}
 	ComunicacionTCP comm;
+	Logica logica;
 	
 	public void settings() {
-		size(500,500);
+		size(1200,700);
 	}
 	
 	public void setup() {
@@ -22,6 +21,7 @@ public class Main extends PApplet{
 		
 		comm= new ComunicacionTCP(this);
 		comm.esperarConexion();
+		logica =new Logica(this);
 	
 	}
 	
@@ -29,7 +29,13 @@ public class Main extends PApplet{
 
 	public void draw() {
 		background(255);
-		
+		logica.pintarPantallas();
 	}
 
+	public void mousePressed() {
+		System.out.print(mouseX + " " + mouseY + "\n");
+
+		logica.evaluarPantallas();
+		
+	}
 }
