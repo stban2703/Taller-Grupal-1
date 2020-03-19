@@ -13,11 +13,14 @@ public class JugadorDos {
 	private boolean deslizar;
 	private boolean perderVida;
 	
-	public JugadorDos(float posX, float posY, int velocidad,int vida, PImage imagen ,PApplet app) {
+	public JugadorDos(float posX, float posY, int velocidad,int vida,PApplet app) {
 		this.app=app;
+		  this.imagen =app.loadImage("../data/rocky.png");
 	}
 	public void pintar() {
-		
+		app.imageMode(app.CENTER);
+		  app.image(this.imagen, posX, posY, 226, 147);
+	
 	}
 	public void mover() {
 		

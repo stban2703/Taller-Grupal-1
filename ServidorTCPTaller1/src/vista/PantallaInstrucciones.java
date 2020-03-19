@@ -14,7 +14,7 @@ public class PantallaInstrucciones {
 	
 	public void pintarPantalla() {
 		  app.imageMode(app.CENTER);
-		  app.image(this.pantallaDos,app.width / 2,app.height / 2, 1200, 700);
+		  app.image(this.pantallaDos,app.width / 2,app.height / 2, 1300, 800);
 		   
 	}
 }
