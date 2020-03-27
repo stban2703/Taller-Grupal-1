@@ -133,6 +133,15 @@ public class Logica {
 		}
 	}
 
+<<<<<<< HEAD
+	
+	public void KeyPressed() {
+		
+		
+	}
+
+=======
+>>>>>>> a007eb5f6252813239ef2456bbe8d683e47035b5
 	public void evaluarPantallas() {
 		switch (pantalla) {
 

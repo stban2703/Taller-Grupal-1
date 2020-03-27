@@ -36,4 +36,24 @@ public class Main extends PApplet {
 		logica.evaluarPantallas();
 
 	}
+	public void KeyPressed() {
+		
+		switch (keyCode) {
+		case RIGHT:
+			
+			break;
+	    case LEFT:
+			
+			break;	
+         case 32: //BARRA ESPACIADORA
+			
+			break;	
+	
+
+		default:
+			break;
+		}
+		 
+		 
+	}
 }
