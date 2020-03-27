@@ -29,7 +29,19 @@ public class JugadorUno {
 	}
 
 	public void mover() {
-
+		if(app.keyCode==app.RIGHT) {
+			posX += velocidad;
+		}
+		if(app.keyCode==app.LEFT) {
+			posX -= velocidad;
+		}
+		if(app.keyCode==app.RIGHT && app.keyCode==32) {
+			posX += velocidad+60;
+		}
+		if(app.keyCode==app.LEFT && app.keyCode==32) {
+			posX -= velocidad+60;
+		}
+		
 	}
 	
 	public void restarVida() {

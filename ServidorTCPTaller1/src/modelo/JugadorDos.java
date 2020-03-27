@@ -30,7 +30,7 @@ public class JugadorDos {
 	}
 
 	public void mover() {
-
+		
 	}
 	
 	public void restarVida() {
