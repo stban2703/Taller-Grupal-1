@@ -24,9 +24,9 @@ public class PantallaJuego {
 		if(app.frameCount%60 == 0) {
 			this.tiempo++;
 		}
-		app.fill(255);
-		app.textSize(40);
+		app.fill(0);
+		app.textSize(30);
 		app.textAlign(app.CENTER, app.CENTER);
-		app.text(this.tiempo, 200, 55);
+		app.text(this.tiempo, 165, 55);
 	}
 }
