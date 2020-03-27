@@ -17,7 +17,7 @@ public class Logica {
 	private PantallaResumen pantallaResumen;
 	private JugadorUno jugadorUno;
 	private JugadorDos jugadorDos;
-	
+
 	private ArrayList<Vida> vidasJ1;
 	private ArrayList<Vida> vidasJ2;
 
@@ -31,12 +31,12 @@ public class Logica {
 		pantallaResumen = new PantallaResumen(app);
 		jugadorUno = new JugadorUno(457, 586, 2, 3, app);
 		jugadorDos = new JugadorDos(800, 586, 2, 3, app);
-		
+
 		vidasJ1 = new ArrayList<Vida>();
 		vidasJ2 = new ArrayList<Vida>();
-		
+
 		meteoritos = new ArrayList<Meteoro>();
-	
+
 	}
 
 	public void pintarPantallas() {
@@ -71,15 +71,15 @@ public class Logica {
 			this.jugadorUno.pintar();
 			this.jugadorDos.pintar();
 
-			//Agregar vidas al arraylist
-			for(int i = 0; i < 3; i++) {
+			// Agregar vidas al arraylist
+			for (int i = 0; i < 3; i++) {
 				vidasJ1.add(new Vida(728 + (40 * i), 61, true, app));
 				vidasJ2.add(new Vida(1065 + (40 * i), 61, true, app));
 				vidasJ1.get(i).pintar();
 				vidasJ2.get(i).pintar();
 			}
-			
-			//Mostrar vidas jugador 1
+
+			// Mostrar vidas jugador 1
 			switch (jugadorUno.getVida()) {
 			case 0:
 				vidasJ1.get(0).setMostrarVida(false);
@@ -95,8 +95,8 @@ public class Logica {
 				vidasJ1.get(2).setMostrarVida(false);
 				break;
 			}
-			
-			//Mostrar vida jugador 2
+
+			// Mostrar vida jugador 2
 			switch (jugadorDos.getVida()) {
 			case 0:
 				vidasJ2.get(0).setMostrarVida(false);
@@ -113,17 +113,18 @@ public class Logica {
 				break;
 			}
 
-			
 			// Agregar meteoros
 			if (app.frameCount % 40 == 0) {
 				meteoritos.add(new Meteoro((int) app.random(50, 1100), -10, app));
 			}
-			
+
 			for (int i = 0; i < meteoritos.size(); i++) {
 				meteoritos.get(i).pintar();
 				meteoritos.get(i).mover();
-			
+
 			}
+
+			perderVida();
 
 			break;
 
@@ -137,7 +138,6 @@ public class Logica {
 		}
 
 	}
-
 
 	public void evaluarPantallas() {
 		switch (pantalla) {
@@ -171,6 +171,38 @@ public class Logica {
 
 		default:
 			break;
+		}
+
+	}
+
+	public void perderVida() {
+		for (int i = 0; i < meteoritos.size(); i++) {
+			float meteoritoX = meteoritos.get(i).getPosX();
+			float meteoritoY = meteoritos.get(i).getPosY();
+			float jugadorUnox = jugadorUno.getPosX();
+			float jugadorUnoy = jugadorUno.getPosY();
+			float jugadorDosx = jugadorDos.getPosX();
+			float jugadorDosy = jugadorDos.getPosY();
+			
+			if (meteoritoX >= jugadorUnox - 113 && meteoritoX <= jugadorUnox + 113 && meteoritoY >= jugadorUnoy - 73.5
+					&& meteoritoY <= jugadorUnoy + 73.5 && jugadorUno.isPerderVida()) {
+				jugadorUno.restarVida();
+				jugadorUno.setPerderVida(false);
+			}
+			
+			if (meteoritoX >= jugadorDosx - 113 && meteoritoX <= jugadorDosx + 113 && meteoritoY >= jugadorDosy - 73.5
+					&& meteoritoY <= jugadorDosy + 73.5 && jugadorDos.isPerderVida()) {
+				jugadorDos.restarVida();
+				jugadorDos.setPerderVida(false);
+			}
+		}
+
+		if (!jugadorUno.isPerderVida() && app.frameCount % 120 == 0) {
+			jugadorUno.setPerderVida(true);
+		}
+		
+		if (!jugadorDos.isPerderVida() && app.frameCount % 120 == 0) {
+			jugadorDos.setPerderVida(true);
 		}
 
 	}

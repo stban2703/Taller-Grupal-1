@@ -20,6 +20,7 @@ public class JugadorDos {
 		this.posY = posY;
 		this.velocidad = velocidad;
 		this.vida = vida;
+		this.perderVida = true;
 	}
 
 	public void pintar() {
@@ -30,6 +31,10 @@ public class JugadorDos {
 
 	public void mover() {
 
+	}
+	
+	public void restarVida() {
+		this.vida--;
 	}
 
 	public float getPosX() {
