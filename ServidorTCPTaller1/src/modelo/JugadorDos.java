@@ -29,7 +29,7 @@ public class JugadorDos {
 	}
 
 	public void mover() {
-
+		
 	}
 
 	public float getPosX() {
