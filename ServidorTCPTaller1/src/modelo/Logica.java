@@ -16,7 +16,15 @@ public class Logica {
 	private PantallaJuego pantallaJuego;
 	private PantallaResumen pantallaResumen;
 	private JugadorUno jugadorUno;
-	private JugadorDos jugadorDos;
+	public JugadorDos jugadorDos;
+
+	public JugadorDos getJugadorDos() {
+		return jugadorDos;
+	}
+
+	public void setJugadorDos(JugadorDos jugadorDos) {
+		this.jugadorDos = jugadorDos;
+	}
 
 	private ArrayList<Vida> vidasJ1;
 	private ArrayList<Vida> vidasJ2;

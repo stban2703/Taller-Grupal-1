@@ -12,6 +12,8 @@ public class JugadorDos {
 	private PImage imagen;
 	private boolean deslizar;
 	private boolean perderVida;
+	private boolean deslizarDerecha;
+	private boolean deslizarIzquierda;
 
 	public JugadorDos(float posX, float posY, int velocidad, int vida, PApplet app) {
 		this.app = app;
@@ -21,16 +23,38 @@ public class JugadorDos {
 		this.velocidad = velocidad;
 		this.vida = vida;
 		this.perderVida = true;
+		this.deslizarDerecha = false;
+		this.deslizarIzquierda = false;
 	}
 
 	public void pintar() {
 		app.imageMode(app.CENTER);
-		app.image(this.imagen, posX, posY, 226, 147);
+		app.image(this.imagen, this.posX, this.posY, 226, 147);
 
 	}
 
-	public void mover() {
+	public void moverDerecha() {
 		
+			this.posX += this.velocidad;
+			this.deslizarDerecha = true;
+			this.deslizarIzquierda = false;
+		}
+	public void moverIzquierda() {
+		
+		posX -= velocidad;
+		deslizarDerecha = false;
+		deslizarIzquierda = true;
+	}
+	
+    public void moverDerechaDeslizar() {
+		
+    	posX += 226;
+		deslizarDerecha = false;
+	}
+    public void moverIzquierdaDeslizar() {
+		
+    	posX -= 226;
+		deslizarIzquierda = false;
 	}
 	
 	public void restarVida() {

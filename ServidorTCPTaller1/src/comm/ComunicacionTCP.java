@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import modelo.JugadorDos;
 import modelo.Logica;
 import processing.core.PApplet;
 import vista.Main;
@@ -69,15 +70,32 @@ public class ComunicacionTCP extends Thread {
 	public void recibirMensaje() throws IOException {
 		line=reader.readLine();
 		System.out.println(line);
-		if(line.startsWith("DERECHA")) {
-		
+		/*
+
+		switch (line) {
+		case "DERECHA":
 			
+			System.out.println("derrrr");
+			logica.jugadorDos.moverDerecha();
+			break;
+	   case "IZQUIERDA":
+			
+		   System.out.println("izzzzz");
+			logica.jugadorDos.moverIzquierda();
+			break;
+			
+	   case "DESLIZAR":
+			
+		   System.out.println("dessssss");
+			logica.jugadorDos.moverIzquierdaDeslizar();
+			logica.jugadorDos.moverDerechaDeslizar();
+			break;
+		default:
+			break;
 		}
-		
-		}
-	
-	
-	
+		*/
+
+	}
 	
 	
 	public void cerrarConexion() {
