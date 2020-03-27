@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import modelo.Logica;
 import processing.core.PApplet;
 import vista.Main;
 
@@ -19,6 +20,7 @@ public class ComunicacionTCP extends Thread {
     private BufferedReader reader;
     String line;
     Main main;
+    Logica logica;
     private PApplet app;
     public ComunicacionTCP(Main main) {
 		this.main=main;
@@ -67,8 +69,14 @@ public class ComunicacionTCP extends Thread {
 	public void recibirMensaje() throws IOException {
 		line=reader.readLine();
 		System.out.println(line);
+		if(line.startsWith("DERECHA")) {
+		
+			
+		}
+		
+		}
 	
-	}
+	
 	
 	
 	
