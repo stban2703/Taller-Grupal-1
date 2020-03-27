@@ -10,7 +10,8 @@ public class JugadorUno {
 	private int velocidad;
 	private int vida;
 	private PImage imagen;
-	private boolean deslizar;
+	private boolean deslizarDerecha;
+	private boolean deslizarIzquierda;
 	private boolean perderVida;
 
 	public JugadorUno(float posX, float posY, int velocidad, int vida, PApplet app) {
@@ -21,6 +22,8 @@ public class JugadorUno {
 		this.velocidad = velocidad;
 		this.vida = vida;
 		this.perderVida = true;
+		this.deslizarDerecha = false;
+		this.deslizarIzquierda = false;
 	}
 
 	public void pintar() {
@@ -29,24 +32,30 @@ public class JugadorUno {
 	}
 
 	public void mover() {
-		if(app.keyCode==app.RIGHT) {
+		if (app.keyCode == app.RIGHT) {
 			posX += velocidad;
+			deslizarDerecha = true;
+			deslizarIzquierda = false;
 		}
-		if(app.keyCode==app.LEFT) {
+
+		if (app.keyCode == app.LEFT) {
 			posX -= velocidad;
+			deslizarDerecha = false;
+			deslizarIzquierda = true;
 		}
-		if(app.keyCode==32) {
-			while(app.keyCode == app.LEFT) {
-				posX += 60;
-			}
-			
+
+		if (deslizarDerecha && app.keyCode == 32) {
+			posX += 226;
+			deslizarDerecha = false;
 		}
-		/*if(app.keyCode==app.LEFT && app.keyCode==32) {
-			posX -= velocidad+60;
-		}*/
-		
+
+		if (deslizarIzquierda && app.keyCode == 32) {
+			posX -= 226;
+			deslizarIzquierda = false;
+		}
+
 	}
-	
+
 	public void restarVida() {
 		this.vida--;
 	}
@@ -91,20 +100,28 @@ public class JugadorUno {
 		this.imagen = imagen;
 	}
 
-	public boolean isDeslizar() {
-		return deslizar;
-	}
-
-	public void setDeslizar(boolean deslizar) {
-		this.deslizar = deslizar;
-	}
-
 	public boolean isPerderVida() {
 		return perderVida;
 	}
 
 	public void setPerderVida(boolean perderVida) {
 		this.perderVida = perderVida;
+	}
+
+	public boolean isDeslizarDerecha() {
+		return deslizarDerecha;
+	}
+
+	public void setDeslizarDerecha(boolean deslizarDerecha) {
+		this.deslizarDerecha = deslizarDerecha;
+	}
+
+	public boolean isDeslizarIzquierda() {
+		return deslizarIzquierda;
+	}
+
+	public void setDeslizarIzquierda(boolean deslizarIzquierda) {
+		this.deslizarIzquierda = deslizarIzquierda;
 	}
 
 }
