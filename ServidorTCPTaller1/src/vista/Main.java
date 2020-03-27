@@ -1,7 +1,6 @@
 package vista;
 
 import comm.ComunicacionTCP;
-import comm.ComunicacionTCP.OnMessageListener;
 import modelo.Logica;
 import processing.core.PApplet;
 
