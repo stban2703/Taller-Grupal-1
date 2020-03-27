@@ -24,6 +24,9 @@ public class Logica {
 	private Vida vidaUnoJ2;
 	private Vida vidaDosJ2;
 	private Vida vidaTresJ2;
+	
+	private ArrayList<Vida> vidasJ1;
+	private ArrayList<Vida> vidasJ2;
 
 	///////
 	//Meteoro meteoro;
@@ -45,7 +48,12 @@ public class Logica {
 		vidaUnoJ2 = new Vida(1056, 61, true, app);
 		vidaDosJ2 = new Vida(1096, 61, true, app);
 		vidaTresJ2 = new Vida(1136, 61, true, app);
-
+		
+		vidasJ1 = new ArrayList<Vida>();
+		vidasJ2 = new ArrayList<Vida>();
+		
+		//vidasJ1.add(new Vida())
+		
 		///////////
 		meteoritos = new ArrayList<Meteoro>();
 
