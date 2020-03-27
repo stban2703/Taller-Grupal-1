@@ -45,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
 
         );
 
+        poderbtn.setOnClickListener(
+                (v)->{
+                    comm.mandarMensaje("DESLIZAR");
+
+                }
+
+
+
+        );
+
+
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {
