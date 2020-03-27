@@ -17,8 +17,25 @@ public class Logica {
 	private PantallaResumen pantallaResumen;
 	private JugadorUno jugadorUno;
 	private JugadorDos jugadorDos;
+<<<<<<< HEAD
 	Meteoro meteoro;
 	private ArrayList <Meteoro> meteoritos;
+=======
+
+	private Vida vidaUnoJ1;
+	private Vida vidaDosJ1;
+	private Vida vidaTresJ1;
+	private Vida vidaUnoJ2;
+	private Vida vidaDosJ2;
+	private Vida vidaTresJ2;
+	
+	private ArrayList<Vida> vidasJ1;
+	private ArrayList<Vida> vidasJ2;
+
+	///////
+	//Meteoro meteoro;
+	private ArrayList<Meteoro> meteoritos;
+>>>>>>> 4ac0ceddd343f355e781f79e8f9b55f63926273b
 
 	public Logica(PApplet app) {
 		this.app = app;
@@ -28,6 +45,24 @@ public class Logica {
 		pantallaResumen = new PantallaResumen(app);
 		jugadorUno = new JugadorUno(457, 586, 2, 3, app);
 		jugadorDos = new JugadorDos(800, 586, 2, 3, app);
+<<<<<<< HEAD
+=======
+
+		vidaUnoJ1 = new Vida(728, 61, true, app);
+		vidaDosJ1 = new Vida(768, 61, true, app);
+		vidaTresJ1 = new Vida(808, 61, true, app);
+
+		vidaUnoJ2 = new Vida(1056, 61, true, app);
+		vidaDosJ2 = new Vida(1096, 61, true, app);
+		vidaTresJ2 = new Vida(1136, 61, true, app);
+		
+		vidasJ1 = new ArrayList<Vida>();
+		vidasJ2 = new ArrayList<Vida>();
+		
+		//vidasJ1.add(new Vida())
+		
+		///////////
+>>>>>>> 4ac0ceddd343f355e781f79e8f9b55f63926273b
 		meteoritos = new ArrayList<Meteoro>();
 	
 	}
@@ -82,11 +117,18 @@ public class Logica {
 			break;
 		}
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4ac0ceddd343f355e781f79e8f9b55f63926273b
 	
 
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4ac0ceddd343f355e781f79e8f9b55f63926273b
 	public void evaluarPantallas() {
 		switch (pantalla) {
 
