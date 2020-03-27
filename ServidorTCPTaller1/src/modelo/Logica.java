@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import comm.ComunicacionTCP;
 import comm.ComunicacionTCP.OnMessageListener;
 import processing.core.PApplet;
+import processing.core.PImage;
 import vista.PantallaInicial;
 import vista.PantallaInstrucciones;
 import vista.PantallaJuego;
@@ -21,7 +22,8 @@ public class Logica implements OnMessageListener {
 	private JugadorUno jugadorUno;
 	public JugadorDos jugadorDos;
 	private ComunicacionTCP comm;
-
+	private int vidasU, vidasD;
+	//private PImage perdedor, ganador;
 	public JugadorDos getJugadorDos() {
 		return jugadorDos;
 	}
@@ -51,6 +53,9 @@ public class Logica implements OnMessageListener {
 
 		comm = new ComunicacionTCP();
 		comm.setObserver(this);
+		
+		vidasU=3;
+		vidasD=3;
 	}
 	
 	public void conectar() {
@@ -143,12 +148,38 @@ public class Logica implements OnMessageListener {
 			}
 
 			perderVida();
+			
+			System.out.println(vidasU+" "+vidasD);
 
 			break;
 
 		case 3:
 			this.pantallaResumen.pintarPantalla();
+	
+			
+			//PIERDE JUGADOR 1
+			if(vidasU==0 &&vidasD!=0) {
+			this.pantallaResumen.pintarPerdedorUno();
+			}
+			//GANA JUGADOR 2
+			if(vidasU!=0 &&vidasD==0) {
+			this.pantallaResumen.pintarGanadorUno();
+			}
+			
+			//PIERDE JUGADOR 2
+			if(vidasD==0 &&vidasU!=0) {
+			this.pantallaResumen.pintarPerdedorDos();
+			}
+			//GANA JUGADOR 2
+			if(vidasD!=0 &&vidasU==0) {
+			this.pantallaResumen.pintarGanadorDos();
+			}
 
+			if (app.mouseX >= 774 && app.mouseX <= 876 && app.mouseY >= 325 && app.mouseY <= 434) {
+				app.cursor(app.HAND);
+			} else {
+				app.cursor(app.ARROW);
+			}
 			break;
 
 		default:
@@ -190,7 +221,11 @@ public class Logica implements OnMessageListener {
 			break;
 
 		case 3:
-
+			// EVALUACIÓN ÁREA SENSIBLE DEL BOTÓN DE SIGUIENTE EN LA PANTALLA RESUMEN, LA OPCIÓN DE REINICIAR
+			if (app.mouseX >= 774 && app.mouseX <= 876 && app.mouseY >= 325 && app.mouseY <= 434) {
+				app.cursor(app.HAND);
+				//this.pantalla = 0;
+			} 
 			break;
 
 		default:
@@ -212,21 +247,35 @@ public class Logica implements OnMessageListener {
 					&& meteoritoY <= jugadorUnoy + 73.5 && jugadorUno.isPerderVida()) {
 				jugadorUno.restarVida();
 				jugadorUno.setPerderVida(false);
+				vidasU--;
 			}
 
 			if (meteoritoX >= jugadorDosx - 113 && meteoritoX <= jugadorDosx + 113 && meteoritoY >= jugadorDosy - 73.5
 					&& meteoritoY <= jugadorDosy + 73.5 && jugadorDos.isPerderVida()) {
 				jugadorDos.restarVida();
 				jugadorDos.setPerderVida(false);
+				vidasD--;
 			}
 		}
 
 		if (!jugadorUno.isPerderVida() && app.frameCount % 120 == 0) {
 			jugadorUno.setPerderVida(true);
+			
 		}
 
 		if (!jugadorDos.isPerderVida() && app.frameCount % 120 == 0) {
 			jugadorDos.setPerderVida(true);
+		
+		}
+		if(vidasU<0) {
+			vidasU=0;
+		}
+		if(vidasD<0) {
+			vidasD=0;
+		}
+		if(vidasU==0 || vidasD==0) {
+			
+			this.pantalla = 3;
 		}
 
 	}
