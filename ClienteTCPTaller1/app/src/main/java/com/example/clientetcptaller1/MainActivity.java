@@ -25,6 +25,26 @@ public class MainActivity extends AppCompatActivity {
         derechabtn = findViewById(R.id.derechabtn);
         poderbtn = findViewById(R.id.poderbtn);
 
+        izquierdabtn.setOnClickListener(
+                (v)->{
+                    comm.mandarMensaje("IZQUIERDA");
+
+                }
+
+
+
+        );
+
+        derechabtn.setOnClickListener(
+                (v)->{
+                    comm.mandarMensaje("DERECHA");
+
+                }
+
+
+
+        );
+
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {

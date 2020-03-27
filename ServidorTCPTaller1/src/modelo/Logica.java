@@ -83,6 +83,11 @@ public class Logica {
 		}
 	}
 
+	
+	public void KeyPressed() {
+		
+		
+	}
 
 	public void evaluarPantallas() {
 		switch (pantalla) {
