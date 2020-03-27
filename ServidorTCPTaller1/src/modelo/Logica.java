@@ -17,19 +17,11 @@ public class Logica {
 	private PantallaResumen pantallaResumen;
 	private JugadorUno jugadorUno;
 	private JugadorDos jugadorDos;
-
-	private Vida vidaUnoJ1;
-	private Vida vidaDosJ1;
-	private Vida vidaTresJ1;
-	private Vida vidaUnoJ2;
-	private Vida vidaDosJ2;
-	private Vida vidaTresJ2;
 	
 	private ArrayList<Vida> vidasJ1;
 	private ArrayList<Vida> vidasJ2;
 
 	///////
-	//Meteoro meteoro;
 	private ArrayList<Meteoro> meteoritos;
 
 	public Logica(PApplet app) {
@@ -40,19 +32,9 @@ public class Logica {
 		pantallaResumen = new PantallaResumen(app);
 		jugadorUno = new JugadorUno(457, 586, 2, 3, app);
 		jugadorDos = new JugadorDos(800, 586, 2, 3, app);
-
-		vidaUnoJ1 = new Vida(728, 61, true, app);
-		vidaDosJ1 = new Vida(768, 61, true, app);
-		vidaTresJ1 = new Vida(808, 61, true, app);
-
-		vidaUnoJ2 = new Vida(1056, 61, true, app);
-		vidaDosJ2 = new Vida(1096, 61, true, app);
-		vidaTresJ2 = new Vida(1136, 61, true, app);
 		
 		vidasJ1 = new ArrayList<Vida>();
 		vidasJ2 = new ArrayList<Vida>();
-		
-		//vidasJ1.add(new Vida())
 		
 		///////////
 		meteoritos = new ArrayList<Meteoro>();
@@ -91,27 +73,49 @@ public class Logica {
 			this.jugadorUno.pintar();
 			this.jugadorDos.pintar();
 
-			this.vidaUnoJ1.pintar();
-			this.vidaDosJ1.pintar();
-			this.vidaTresJ1.pintar();
-
+			for(int i = 0; i < 3; i++) {
+				vidasJ1.add(new Vida(728 + (40 * i), 61, true, app));
+				vidasJ2.add(new Vida(1065 + (40 * i), 61, true, app));
+				vidasJ1.get(i).pintar();
+				vidasJ2.get(i).pintar();
+			}
+			
+			//Mostrar vidas jugador 1
 			switch (jugadorUno.getVida()) {
 			case 0:
-
+				vidasJ1.get(0).setMostrarVida(false);
+				vidasJ1.get(1).setMostrarVida(false);
+				vidasJ1.get(2).setMostrarVida(false);
 				break;
 			case 1:
-				vidaDosJ1.setMostrarVida(false);
+				vidasJ1.get(1).setMostrarVida(false);
+				vidasJ1.get(2).setMostrarVida(false);
 				break;
 
 			case 2:
-				vidaTresJ1.setMostrarVida(false);
+				vidasJ1.get(2).setMostrarVida(false);
 				break;
-			case 3:
+			}
+			
+			//Mostrar vida jugador 2
+			switch (jugadorDos.getVida()) {
+			case 0:
+				vidasJ2.get(0).setMostrarVida(false);
+				vidasJ2.get(1).setMostrarVida(false);
+				vidasJ2.get(2).setMostrarVida(false);
+				break;
+			case 1:
+				vidasJ2.get(1).setMostrarVida(false);
+				vidasJ2.get(2).setMostrarVida(false);
+				break;
 
+			case 2:
+				vidasJ2.get(2).setMostrarVida(false);
 				break;
 			}
 
-			/////
+			
+			// Agregar meteoros
 			if (app.frameCount % 40 == 0) {
 				meteoritos.add(new Meteoro((int) app.random(50, 1100), -10, app));
 			}
