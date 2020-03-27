@@ -17,17 +17,8 @@ public class Logica {
 	private PantallaResumen pantallaResumen;
 	private JugadorUno jugadorUno;
 	private JugadorDos jugadorDos;
-
-	private Vida vidaUnoJ1;
-	private Vida vidaDosJ1;
-	private Vida vidaTresJ1;
-	private Vida vidaUnoJ2;
-	private Vida vidaDosJ2;
-	private Vida vidaTresJ2;
-
-	///////
-	//Meteoro meteoro;
-	private ArrayList<Meteoro> meteoritos;
+	Meteoro meteoro;
+	private ArrayList <Meteoro> meteoritos;
 
 	public Logica(PApplet app) {
 		this.app = app;
@@ -37,18 +28,8 @@ public class Logica {
 		pantallaResumen = new PantallaResumen(app);
 		jugadorUno = new JugadorUno(457, 586, 2, 3, app);
 		jugadorDos = new JugadorDos(800, 586, 2, 3, app);
-
-		vidaUnoJ1 = new Vida(728, 61, true, app);
-		vidaDosJ1 = new Vida(768, 61, true, app);
-		vidaTresJ1 = new Vida(808, 61, true, app);
-
-		vidaUnoJ2 = new Vida(1056, 61, true, app);
-		vidaDosJ2 = new Vida(1096, 61, true, app);
-		vidaTresJ2 = new Vida(1136, 61, true, app);
-
-		///////////
 		meteoritos = new ArrayList<Meteoro>();
-
+	
 	}
 
 	public void pintarPantallas() {
@@ -82,35 +63,12 @@ public class Logica {
 			this.pantallaJuego.pintarTiempo();
 			this.jugadorUno.pintar();
 			this.jugadorDos.pintar();
-
-			this.vidaUnoJ1.pintar();
-			this.vidaDosJ1.pintar();
-			this.vidaTresJ1.pintar();
-
-			switch (jugadorUno.getVida()) {
-			case 0:
-
-				break;
-			case 1:
-				vidaDosJ1.setMostrarVida(false);
-				break;
-
-			case 2:
-				vidaTresJ1.setMostrarVida(false);
-				break;
-			case 3:
-
-				break;
-			}
-
-			/////
-			if (app.frameCount % 40 == 0) {
-				meteoritos.add(new Meteoro((int) app.random(50, 1100), -10, app));
-			}
-			
+		
 			for (int i = 0; i < meteoritos.size(); i++) {
+				meteoritos.add(new Meteoro(meteoro.getPosX(),meteoro.getPosY(),meteoro.getImagen(), meteoro.getVelocidad(),app));
 				meteoritos.get(i).pintar();
 				meteoritos.get(i).mover();
+			
 			}
 
 			break;
@@ -125,15 +83,10 @@ public class Logica {
 		}
 	}
 
-<<<<<<< HEAD
 	
-	public void KeyPressed() {
-		
-		
+
 	}
 
-=======
->>>>>>> a007eb5f6252813239ef2456bbe8d683e47035b5
 	public void evaluarPantallas() {
 		switch (pantalla) {
 
