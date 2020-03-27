@@ -34,29 +34,32 @@ public class JugadorDos {
 	}
 
 	public void moverDerecha() {
-		
-			this.posX += this.velocidad;
-			this.deslizarDerecha = true;
+		this.posX += this.velocidad;
+		this.deslizarDerecha = true;
+		this.deslizarIzquierda = false;
+	}
+
+	public void moverIzquierda() {
+
+		this.posX -= this.velocidad;
+		this.deslizarDerecha = false;
+		this.deslizarIzquierda = true;
+	}
+
+	public void moverDerechaDeslizar() {
+		if (this.deslizarDerecha) {
+			this.posX += 226;
+			this.deslizarDerecha = false;
+		}
+	}
+
+	public void moverIzquierdaDeslizar() {
+		if (this.deslizarIzquierda) {
+			this.posX -= 226;
 			this.deslizarIzquierda = false;
 		}
-	public void moverIzquierda() {
-		
-		posX -= velocidad;
-		deslizarDerecha = false;
-		deslizarIzquierda = true;
 	}
-	
-    public void moverDerechaDeslizar() {
-		
-    	posX += 226;
-		deslizarDerecha = false;
-	}
-    public void moverIzquierdaDeslizar() {
-		
-    	posX -= 226;
-		deslizarIzquierda = false;
-	}
-	
+
 	public void restarVida() {
 		this.vida--;
 	}

@@ -17,87 +17,87 @@ import vista.Main;
 
 public class ComunicacionTCP extends Thread {
 	private Socket socket;
-    private BufferedWriter writer;
-    private BufferedReader reader;
-    String line;
-    Main main;
-    Logica logica;
-    private PApplet app;
-    public ComunicacionTCP(Main main) {
-		this.main=main;
+	private BufferedWriter writer;
+	private BufferedReader reader;
+	private OnMessageListener observer;
+	//String line;
+	//Main main;
+	//private Logica logica;
+	private PApplet app;
+	
+	public void setObserver(OnMessageListener observer) {
+		this.observer = observer;
 	}
-    public void run() {
+
+	/*public ComunicacionTCP(Main main) {
+		//this.main = main;
+	}*/
+
+	public void run() {
 		try {
-			ServerSocket server=new ServerSocket(5000);
+			ServerSocket server = new ServerSocket(5000);
 			System.out.println("ESPERANDO");
-			this.socket=server.accept();
+			this.socket = server.accept();
 			System.out.println("CONEXIÓN ACEPTADA");
-			
-			InputStream is=socket.getInputStream();
-			InputStreamReader isr=new InputStreamReader(is);
-			this.reader=new BufferedReader(isr);
-			
-			OutputStream os=socket.getOutputStream();
-			OutputStreamWriter osw=new OutputStreamWriter(os);
-			this.writer=new BufferedWriter(osw);
-			
-			while(true) {
+
+			InputStream is = socket.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+			this.reader = new BufferedReader(isr);
+
+			OutputStream os = socket.getOutputStream();
+			OutputStreamWriter osw = new OutputStreamWriter(os);
+			this.writer = new BufferedWriter(osw);
+
+			while (true) {
 				recibirMensaje();
 			}
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-    public void esperarConexion() {
+
+	public void esperarConexion() {
 		this.start();
 	}
-	
+
 	public void mandarMensaje(String mensaje) {
-		new Thread(
-				()->{
-					try {
-						writer.write(mensaje+"\n");
-						writer.flush();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			).start();
+		new Thread(() -> {
+			try {
+				writer.write(mensaje + "\n");
+				writer.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}).start();
 	}
+
 	public void recibirMensaje() throws IOException {
-		line=reader.readLine();
+		String line = reader.readLine();
 		System.out.println(line);
-		/*
-
-		switch (line) {
-		case "DERECHA":
-			
-			System.out.println("derrrr");
-			logica.jugadorDos.moverDerecha();
-			break;
-	   case "IZQUIERDA":
-			
-		   System.out.println("izzzzz");
-			logica.jugadorDos.moverIzquierda();
-			break;
-			
-	   case "DESLIZAR":
-			
-		   System.out.println("dessssss");
-			logica.jugadorDos.moverIzquierdaDeslizar();
-			logica.jugadorDos.moverDerechaDeslizar();
-			break;
-		default:
-			break;
+		
+		if(observer!=null) {
+			observer.onMessage(line);
 		}
-		*/
+		/*
+		 * 
+		 * switch (line) { case "DERECHA":
+		 * 
+		 * System.out.println("derrrr"); logica.jugadorDos.moverDerecha(); break; case
+		 * "IZQUIERDA":
+		 * 
+		 * System.out.println("izzzzz"); logica.jugadorDos.moverIzquierda(); break;
+		 * 
+		 * case "DESLIZAR":
+		 * 
+		 * System.out.println("dessssss"); logica.jugadorDos.moverIzquierdaDeslizar();
+		 * logica.jugadorDos.moverDerechaDeslizar(); break; default: break; }
+		 */
 
 	}
-	
-	
+
 	public void cerrarConexion() {
 		try {
 			socket.close();
@@ -106,4 +106,9 @@ public class ComunicacionTCP extends Thread {
 			e.printStackTrace();
 		}
 	}
+
+	public interface OnMessageListener {
+		void onMessage(String mensaje);
+	}
+	
 }

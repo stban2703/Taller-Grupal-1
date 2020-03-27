@@ -1,6 +1,7 @@
 package vista;
 
 import comm.ComunicacionTCP;
+import comm.ComunicacionTCP.OnMessageListener;
 import modelo.Logica;
 import processing.core.PApplet;
 
@@ -11,18 +12,16 @@ public class Main extends PApplet {
 		PApplet.main(Main.class.getName());
 	}
 
-	ComunicacionTCP comm;
-	Logica logica;
+	private ComunicacionTCP comm;
+	private Logica logica;
 
 	public void settings() {
 		size(1200, 700);
 	}
 
 	public void setup() {
-
-		comm = new ComunicacionTCP(this);
-		comm.esperarConexion();
 		logica = new Logica(this);
+		logica.conectar();
 
 	}
 
@@ -37,7 +36,6 @@ public class Main extends PApplet {
 
 	}
 	public void keyPressed() {
-	
 		logica.moverPersonajeUno();
 
 	}

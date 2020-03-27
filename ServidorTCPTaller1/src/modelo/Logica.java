@@ -1,13 +1,16 @@
 package modelo;
 
 import java.util.ArrayList;
+
+import comm.ComunicacionTCP;
+import comm.ComunicacionTCP.OnMessageListener;
 import processing.core.PApplet;
 import vista.PantallaInicial;
 import vista.PantallaInstrucciones;
 import vista.PantallaJuego;
 import vista.PantallaResumen;
 
-public class Logica {
+public class Logica implements OnMessageListener {
 
 	private PApplet app;
 	private int pantalla = 0;
@@ -17,6 +20,7 @@ public class Logica {
 	private PantallaResumen pantallaResumen;
 	private JugadorUno jugadorUno;
 	public JugadorDos jugadorDos;
+	private ComunicacionTCP comm;
 
 	public JugadorDos getJugadorDos() {
 		return jugadorDos;
@@ -45,6 +49,12 @@ public class Logica {
 
 		meteoritos = new ArrayList<Meteoro>();
 
+		comm = new ComunicacionTCP();
+		comm.setObserver(this);
+	}
+	
+	public void conectar() {
+		comm.esperarConexion();
 	}
 
 	public void pintarPantallas() {
@@ -78,7 +88,6 @@ public class Logica {
 			this.pantallaJuego.pintarTiempo();
 			this.jugadorUno.pintar();
 			this.jugadorDos.pintar();
-		
 
 			// Agregar vidas al arraylist
 			for (int i = 0; i < 3; i++) {
@@ -147,12 +156,12 @@ public class Logica {
 		}
 
 	}
+
 	public void moverPersonajeUno() {
-	
+
 		jugadorUno.mover();
-		
+
 	}
-	
 
 	public void evaluarPantallas() {
 		switch (pantalla) {
@@ -198,13 +207,13 @@ public class Logica {
 			float jugadorUnoy = jugadorUno.getPosY();
 			float jugadorDosx = jugadorDos.getPosX();
 			float jugadorDosy = jugadorDos.getPosY();
-			
+
 			if (meteoritoX >= jugadorUnox - 113 && meteoritoX <= jugadorUnox + 113 && meteoritoY >= jugadorUnoy - 73.5
 					&& meteoritoY <= jugadorUnoy + 73.5 && jugadorUno.isPerderVida()) {
 				jugadorUno.restarVida();
 				jugadorUno.setPerderVida(false);
 			}
-			
+
 			if (meteoritoX >= jugadorDosx - 113 && meteoritoX <= jugadorDosx + 113 && meteoritoY >= jugadorDosy - 73.5
 					&& meteoritoY <= jugadorDosy + 73.5 && jugadorDos.isPerderVida()) {
 				jugadorDos.restarVida();
@@ -215,11 +224,33 @@ public class Logica {
 		if (!jugadorUno.isPerderVida() && app.frameCount % 120 == 0) {
 			jugadorUno.setPerderVida(true);
 		}
-		
+
 		if (!jugadorDos.isPerderVida() && app.frameCount % 120 == 0) {
 			jugadorDos.setPerderVida(true);
 		}
 
+	}
+
+	@Override
+	public void onMessage(String mensaje) {
+		switch (mensaje) {
+		case "DERECHA":
+			jugadorDos.moverDerecha();
+			System.out.println("derrrr" + "/" + jugadorDos.getPosX());
+			break;
+		case "IZQUIERDA":
+			jugadorDos.moverIzquierda();
+			System.out.println("izzzzz");
+			break;
+
+		case "DESLIZAR":
+			jugadorDos.moverIzquierdaDeslizar();
+			jugadorDos.moverDerechaDeslizar();
+			System.out.println("dessssss");
+			break;
+		default:
+			break;
+		}
 	}
 
 }
