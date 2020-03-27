@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import processing.core.PApplet;
 import vista.PantallaInicial;
 import vista.PantallaInstrucciones;
@@ -16,6 +17,8 @@ public class Logica {
 	private PantallaResumen pantallaResumen;
 	private JugadorUno jugadorUno;
 	private JugadorDos jugadorDos;
+	Meteoro meteoro;
+	private ArrayList <Meteoro> meteoritos;
 
 	public Logica(PApplet app) {
 		this.app = app;
@@ -25,6 +28,8 @@ public class Logica {
 		pantallaResumen = new PantallaResumen(app);
 		jugadorUno = new JugadorUno(457, 586, 2, 3, app);
 		jugadorDos = new JugadorDos(800, 586, 2, 3, app);
+		meteoritos = new ArrayList<Meteoro>();
+	
 	}
 
 	public void pintarPantallas() {
@@ -58,6 +63,13 @@ public class Logica {
 			this.pantallaJuego.pintarTiempo();
 			this.jugadorUno.pintar();
 			this.jugadorDos.pintar();
+		
+			for (int i = 0; i < meteoritos.size(); i++) {
+				meteoritos.add(new Meteoro(meteoro.getPosX(),meteoro.getPosY(),meteoro.getImagen(), meteoro.getVelocidad(),app));
+				meteoritos.get(i).pintar();
+				meteoritos.get(i).mover();
+			
+			}
 
 			break;
 
@@ -70,6 +82,7 @@ public class Logica {
 			break;
 		}
 	}
+
 
 	public void evaluarPantallas() {
 		switch (pantalla) {
