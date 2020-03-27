@@ -21,7 +21,6 @@ public class Logica {
 	private ArrayList<Vida> vidasJ1;
 	private ArrayList<Vida> vidasJ2;
 
-	///////
 	private ArrayList<Meteoro> meteoritos;
 
 	public Logica(PApplet app) {
@@ -36,9 +35,8 @@ public class Logica {
 		vidasJ1 = new ArrayList<Vida>();
 		vidasJ2 = new ArrayList<Vida>();
 		
-		///////////
 		meteoritos = new ArrayList<Meteoro>();
-
+	
 	}
 
 	public void pintarPantallas() {
@@ -73,6 +71,7 @@ public class Logica {
 			this.jugadorUno.pintar();
 			this.jugadorDos.pintar();
 
+			//Agregar vidas al arraylist
 			for(int i = 0; i < 3; i++) {
 				vidasJ1.add(new Vida(728 + (40 * i), 61, true, app));
 				vidasJ2.add(new Vida(1065 + (40 * i), 61, true, app));
@@ -123,6 +122,7 @@ public class Logica {
 			for (int i = 0; i < meteoritos.size(); i++) {
 				meteoritos.get(i).pintar();
 				meteoritos.get(i).mover();
+			
 			}
 
 			break;
@@ -135,11 +135,7 @@ public class Logica {
 		default:
 			break;
 		}
-	}
-	
-	public void KeyPressed() {
-		
-		
+
 	}
 
 
