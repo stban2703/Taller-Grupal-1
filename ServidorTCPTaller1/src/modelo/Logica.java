@@ -29,8 +29,8 @@ public class Logica {
 		pantallaInstrucciones = new PantallaInstrucciones(app);
 		pantallaJuego = new PantallaJuego(app);
 		pantallaResumen = new PantallaResumen(app);
-		jugadorUno = new JugadorUno(132, 586, 3, 3, app);
-		jugadorDos = new JugadorDos(800, 586, 2, 3, app);
+		jugadorUno = new JugadorUno(132, 586, 6, 3, app);
+		jugadorDos = new JugadorDos(800, 586, 6, 3, app);
 
 		vidasJ1 = new ArrayList<Vida>();
 		vidasJ2 = new ArrayList<Vida>();
