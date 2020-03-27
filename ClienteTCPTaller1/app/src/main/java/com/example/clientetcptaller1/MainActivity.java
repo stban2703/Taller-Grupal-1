@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         );
 
-        derechabtn.setOnClickListener(
+        poderbtn.setOnClickListener(
                 (v)->{
                     comm.mandarMensaje("DESLIZAR");
 
