@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import comm.ComunicacionTCP;
 import comm.ComunicacionTCP.OnMessageListener;
 import processing.core.PApplet;
-import processing.core.PImage;
 import vista.PantallaInicial;
 import vista.PantallaInstrucciones;
 import vista.PantallaJuego;
@@ -22,16 +21,6 @@ public class Logica implements OnMessageListener {
 	private JugadorUno jugadorUno;
 	public JugadorDos jugadorDos;
 	private ComunicacionTCP comm;
-	private int vidasU, vidasD;
-	//private PImage perdedor, ganador;
-	public JugadorDos getJugadorDos() {
-		return jugadorDos;
-	}
-
-	public void setJugadorDos(JugadorDos jugadorDos) {
-		this.jugadorDos = jugadorDos;
-	}
-
 	private ArrayList<Vida> vidasJ1;
 	private ArrayList<Vida> vidasJ2;
 
@@ -43,8 +32,8 @@ public class Logica implements OnMessageListener {
 		pantallaInstrucciones = new PantallaInstrucciones(app);
 		pantallaJuego = new PantallaJuego(app);
 		pantallaResumen = new PantallaResumen(app);
-		jugadorUno = new JugadorUno(132, 586, 8, 3, app);
-		jugadorDos = new JugadorDos(800, 586, 8, 3, app);
+		jugadorUno = new JugadorUno(132, 586, 10, 3, app);
+		jugadorDos = new JugadorDos(800, 586, 10, 3, app);
 
 		vidasJ1 = new ArrayList<Vida>();
 		vidasJ2 = new ArrayList<Vida>();
@@ -53,18 +42,14 @@ public class Logica implements OnMessageListener {
 
 		comm = new ComunicacionTCP();
 		comm.setObserver(this);
-		
-		vidasU=3;
-		vidasD=3;
 	}
-	
+
 	public void conectar() {
 		comm.esperarConexion();
 	}
 
 	public void pintarPantallas() {
 		switch (pantalla) {
-
 		case 0:
 
 			this.pantallaInicio.pintarPantalla();
@@ -108,6 +93,7 @@ public class Logica implements OnMessageListener {
 				vidasJ1.get(0).setMostrarVida(false);
 				vidasJ1.get(1).setMostrarVida(false);
 				vidasJ1.get(2).setMostrarVida(false);
+				pantalla = 3;
 				break;
 			case 1:
 				vidasJ1.get(1).setMostrarVida(false);
@@ -117,6 +103,12 @@ public class Logica implements OnMessageListener {
 			case 2:
 				vidasJ1.get(2).setMostrarVida(false);
 				break;
+
+			case 3:
+				vidasJ1.get(0).setMostrarVida(true);
+				vidasJ1.get(1).setMostrarVida(true);
+				vidasJ1.get(2).setMostrarVida(true);
+				break;
 			}
 
 			// Mostrar vida jugador 2
@@ -125,6 +117,7 @@ public class Logica implements OnMessageListener {
 				vidasJ2.get(0).setMostrarVida(false);
 				vidasJ2.get(1).setMostrarVida(false);
 				vidasJ2.get(2).setMostrarVida(false);
+				pantalla = 3;
 				break;
 			case 1:
 				vidasJ2.get(1).setMostrarVida(false);
@@ -134,46 +127,65 @@ public class Logica implements OnMessageListener {
 			case 2:
 				vidasJ2.get(2).setMostrarVida(false);
 				break;
+
+			case 3:
+				vidasJ2.get(0).setMostrarVida(true);
+				vidasJ2.get(1).setMostrarVida(true);
+				vidasJ2.get(2).setMostrarVida(true);
+				break;
 			}
 
 			// Agregar meteoros
-			if (app.frameCount % 40 == 0) {
+			if (app.frameCount % 15 == 0) {
 				meteoritos.add(new Meteoro((int) app.random(50, 1100), -10, app));
 			}
 
+			// Pintar meteorors
 			for (int i = 0; i < meteoritos.size(); i++) {
 				meteoritos.get(i).pintar();
 				meteoritos.get(i).mover();
+			}
 
+			for (int i = 0; i < meteoritos.size(); i++) {
+				if (meteoritos.get(i).getPosY() > 736) {
+					meteoritos.remove(i);
+				}
 			}
 
 			perderVida();
-			
-			System.out.println(vidasU+" "+vidasD);
-
 			break;
 
 		case 3:
 			this.pantallaResumen.pintarPantalla();
-	
-			
-			//PIERDE JUGADOR 1
-			if(vidasU==0 &&vidasD!=0) {
-			this.pantallaResumen.pintarPerdedorUno();
+
+			// PIERDE JUGADOR 1
+			if (jugadorUno.getVida() == 0 && jugadorDos.getVida() != 0) {
+				this.pantallaResumen.pintarPerdedorUno();
 			}
-			//GANA JUGADOR 2
-			if(vidasU!=0 &&vidasD==0) {
-			this.pantallaResumen.pintarGanadorUno();
+			// GANA JUGADOR 2
+			if (jugadorUno.getVida() != 0 && jugadorDos.getVida() == 0) {
+				this.pantallaResumen.pintarGanadorUno();
 			}
-			
-			//PIERDE JUGADOR 2
-			if(vidasD==0 &&vidasU!=0) {
-			this.pantallaResumen.pintarPerdedorDos();
+
+			// PIERDE JUGADOR 2
+			if (jugadorDos.getVida() == 0 && jugadorUno.getVida() != 0) {
+				this.pantallaResumen.pintarPerdedorDos();
 			}
-			//GANA JUGADOR 2
-			if(vidasD!=0 &&vidasU==0) {
-			this.pantallaResumen.pintarGanadorDos();
+			// GANA JUGADOR 2
+			if (jugadorDos.getVida() != 0 && jugadorUno.getVida() == 0) {
+				this.pantallaResumen.pintarGanadorDos();
 			}
+
+			// EMPATE
+			if (jugadorDos.getVida() == 0 && jugadorUno.getVida() == 0) {
+				this.pantallaResumen.pintarPerdedorUno();
+				this.pantallaResumen.pintarPerdedorDos();
+			}
+
+			// PINTAR TIEMPO
+			app.textSize(25);
+			app.text(this.pantallaJuego.getTiempo(), 670, 280);
+			app.text(this.pantallaJuego.getTiempo(), 670, 525);
 
 			if (app.mouseX >= 774 && app.mouseX <= 876 && app.mouseY >= 325 && app.mouseY <= 434) {
 				app.cursor(app.HAND);
@@ -221,11 +233,22 @@ public class Logica implements OnMessageListener {
 			break;
 
 		case 3:
-			// EVALUACIÓN ÁREA SENSIBLE DEL BOTÓN DE SIGUIENTE EN LA PANTALLA RESUMEN, LA OPCIÓN DE REINICIAR
+			// EVALUACIÓN ÁREA SENSIBLE DEL BOTÓN DE SIGUIENTE EN LA PANTALLA RESUMEN, LA
+			// OPCIÓN DE REINICIAR
 			if (app.mouseX >= 774 && app.mouseX <= 876 && app.mouseY >= 325 && app.mouseY <= 434) {
+				
 				app.cursor(app.HAND);
-				//this.pantalla = 0;
-			} 
+				//BORRAR METEOROS
+				meteoritos.clear();
+				//VOLVER A PANTALLA INICIO
+				this.pantalla = 0;
+				//RESTAURAR VIDAS
+				jugadorUno.setVida(3);
+				jugadorDos.setVida(3);
+				//RESTAURAR TIEMPO
+				this.pantallaJuego.setTiempo(0);
+
+			}
 			break;
 
 		default:
@@ -247,35 +270,32 @@ public class Logica implements OnMessageListener {
 					&& meteoritoY <= jugadorUnoy + 73.5 && jugadorUno.isPerderVida()) {
 				jugadorUno.restarVida();
 				jugadorUno.setPerderVida(false);
-				vidasU--;
 			}
 
 			if (meteoritoX >= jugadorDosx - 113 && meteoritoX <= jugadorDosx + 113 && meteoritoY >= jugadorDosy - 73.5
 					&& meteoritoY <= jugadorDosy + 73.5 && jugadorDos.isPerderVida()) {
 				jugadorDos.restarVida();
 				jugadorDos.setPerderVida(false);
-				vidasD--;
 			}
 		}
 
-		if (!jugadorUno.isPerderVida() && app.frameCount % 70 == 0) {
+		if (!jugadorUno.isPerderVida() && app.frameCount % 50 == 0) {
 			jugadorUno.setPerderVida(true);
-			
+
 		}
 
-		if (!jugadorDos.isPerderVida() && app.frameCount % 70 == 0) {
+		if (!jugadorDos.isPerderVida() && app.frameCount % 50 == 0) {
 			jugadorDos.setPerderVida(true);
-		
+
 		}
-		if(vidasU<0) {
-			vidasU=0;
+		if (jugadorUno.getVida() < 0) {
+			jugadorUno.setVida(0);
+			;
 		}
-		if(vidasD<0) {
-			vidasD=0;
-		}
-		if(vidasU==0 || vidasD==0) {
-			
-			this.pantalla = 3;
+
+		if (jugadorDos.getVida() < 0) {
+			jugadorDos.setVida(0);
+			;
 		}
 
 	}

@@ -30,6 +30,12 @@ public class JugadorDos {
 	public void pintar() {
 		app.imageMode(app.CENTER);
 		app.image(this.imagen, this.posX, this.posY, 226, 147);
+		if (posX<90 ) {
+			posX=90;
+		}
+		if (posX> 1093) {
+			posX=1093;
+		}
 
 	}
 
@@ -40,7 +46,6 @@ public class JugadorDos {
 	}
 
 	public void moverIzquierda() {
-
 		this.posX -= this.velocidad;
 		this.deslizarDerecha = false;
 		this.deslizarIzquierda = true;

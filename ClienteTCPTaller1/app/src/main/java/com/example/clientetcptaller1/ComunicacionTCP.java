@@ -25,7 +25,8 @@ public class ComunicacionTCP extends Thread {
     public void run() {
         try {
             this.socket=new Socket("192.168.0.34",5000);
-
+            //192.168.0.34
+            //192.168.0.4
 
             InputStream is=socket.getInputStream();
             InputStreamReader isr=new InputStreamReader(is);

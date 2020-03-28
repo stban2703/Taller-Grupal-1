@@ -21,7 +21,7 @@ public class PantallaJuego {
 	}
 
 	public void pintarTiempo() {
-		if(app.frameCount%60 == 0) {
+		if(app.frameCount%30 == 0) {
 			this.tiempo++;
 		}
 		app.fill(0);
