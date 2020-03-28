@@ -30,7 +30,6 @@ public class Main extends PApplet {
 	}
 
 	public void mousePressed() {
-		System.out.print(mouseX + " " + mouseY + "\n");
 		logica.evaluarPantallas();
 
 	}
