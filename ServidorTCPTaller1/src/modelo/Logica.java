@@ -258,12 +258,12 @@ public class Logica implements OnMessageListener {
 			}
 		}
 
-		if (!jugadorUno.isPerderVida() && app.frameCount % 120 == 0) {
+		if (!jugadorUno.isPerderVida() && app.frameCount % 70 == 0) {
 			jugadorUno.setPerderVida(true);
 			
 		}
 
-		if (!jugadorDos.isPerderVida() && app.frameCount % 120 == 0) {
+		if (!jugadorDos.isPerderVida() && app.frameCount % 70 == 0) {
 			jugadorDos.setPerderVida(true);
 		
 		}

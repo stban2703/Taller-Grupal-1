@@ -4,9 +4,9 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class PantallaJuego {
-	PImage pantallaTres;
-	PApplet app;
-	int tiempo;
+	private PImage pantallaTres;
+	private PApplet app;
+	private int tiempo;
 
 	public PantallaJuego(PApplet app) {
 		this.pantallaTres = app.loadImage("../data/juego.png");
@@ -27,6 +27,15 @@ public class PantallaJuego {
 		app.fill(0);
 		app.textSize(30);
 		app.textAlign(app.CENTER, app.CENTER);
-		app.text(this.tiempo, 165, 55);
+		app.text(this.tiempo, 205, 55);
 	}
+
+	public int getTiempo() {
+		return tiempo;
+	}
+
+	public void setTiempo(int tiempo) {
+		this.tiempo = tiempo;
+	}
+	
 }
