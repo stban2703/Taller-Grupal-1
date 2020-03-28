@@ -305,17 +305,17 @@ public class Logica implements OnMessageListener {
 		switch (mensaje) {
 		case "DERECHA":
 			jugadorDos.moverDerecha();
-			System.out.println("derrrr" + "/" + jugadorDos.getPosX());
+			//System.out.println("derrrr" + "/" + jugadorDos.getPosX());
 			break;
 		case "IZQUIERDA":
 			jugadorDos.moverIzquierda();
-			System.out.println("izzzzz");
+			//System.out.println("izzzzz");
 			break;
 
 		case "DESLIZAR":
 			jugadorDos.moverIzquierdaDeslizar();
 			jugadorDos.moverDerechaDeslizar();
-			System.out.println("dessssss");
+			//System.out.println("dessssss");
 			break;
 		default:
 			break;
