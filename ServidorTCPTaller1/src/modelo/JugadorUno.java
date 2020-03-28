@@ -53,6 +53,13 @@ public class JugadorUno {
 			posX -= 226;
 			deslizarIzquierda = false;
 		}
+		//LIMITES DEL ÁREA
+		if (posX<90 ) {
+			posX=90;
+		}
+		if (posX> 1093) {
+			posX=1093;
+		}
 
 	}
 
