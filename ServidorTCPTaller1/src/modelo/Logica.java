@@ -32,8 +32,8 @@ public class Logica implements OnMessageListener {
 		pantallaInstrucciones = new PantallaInstrucciones(app);
 		pantallaJuego = new PantallaJuego(app);
 		pantallaResumen = new PantallaResumen(app);
-		jugadorUno = new JugadorUno(132, 586, 10, 3, app);
-		jugadorDos = new JugadorDos(800, 586, 10, 3, app);
+		jugadorUno = new JugadorUno(150, 586, 15, 3, app);
+		jugadorDos = new JugadorDos(1050, 586, 18, 3, app);
 
 		vidasJ1 = new ArrayList<Vida>();
 		vidasJ2 = new ArrayList<Vida>();
@@ -201,8 +201,9 @@ public class Logica implements OnMessageListener {
 	}
 
 	public void moverPersonajeUno() {
-
-		jugadorUno.mover();
+		if (pantalla == 2) {
+			jugadorUno.mover();
+		}
 
 	}
 
@@ -236,17 +237,21 @@ public class Logica implements OnMessageListener {
 			// EVALUACIÓN ÁREA SENSIBLE DEL BOTÓN DE SIGUIENTE EN LA PANTALLA RESUMEN, LA
 			// OPCIÓN DE REINICIAR
 			if (app.mouseX >= 774 && app.mouseX <= 876 && app.mouseY >= 325 && app.mouseY <= 434) {
-				
+
 				app.cursor(app.HAND);
-				//BORRAR METEOROS
+				// BORRAR METEOROS
 				meteoritos.clear();
-				//VOLVER A PANTALLA INICIO
+				// VOLVER A PANTALLA INICIO
 				this.pantalla = 0;
-				//RESTAURAR VIDAS
+				// RESTAURAR VIDAS
 				jugadorUno.setVida(3);
 				jugadorDos.setVida(3);
-				//RESTAURAR TIEMPO
+				// RESTAURAR TIEMPO
 				this.pantallaJuego.setTiempo(0);
+				
+				//RESTAURAR POSICION DE JUGADORES
+				this.jugadorUno.setPosX(150);
+				this.jugadorDos.setPosX(1050);
 
 			}
 			break;
@@ -302,23 +307,25 @@ public class Logica implements OnMessageListener {
 
 	@Override
 	public void onMessage(String mensaje) {
-		switch (mensaje) {
-		case "DERECHA":
-			jugadorDos.moverDerecha();
-			//System.out.println("derrrr" + "/" + jugadorDos.getPosX());
-			break;
-		case "IZQUIERDA":
-			jugadorDos.moverIzquierda();
-			//System.out.println("izzzzz");
-			break;
+		if (pantalla == 2) {
+			switch (mensaje) {
+			case "DERECHA":
+				jugadorDos.moverDerecha();
+				// System.out.println("derrrr" + "/" + jugadorDos.getPosX());
+				break;
+			case "IZQUIERDA":
+				jugadorDos.moverIzquierda();
+				// System.out.println("izzzzz");
+				break;
 
-		case "DESLIZAR":
-			jugadorDos.moverIzquierdaDeslizar();
-			jugadorDos.moverDerechaDeslizar();
-			//System.out.println("dessssss");
-			break;
-		default:
-			break;
+			case "DESLIZAR":
+				jugadorDos.moverIzquierdaDeslizar();
+				jugadorDos.moverDerechaDeslizar();
+				// System.out.println("dessssss");
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
